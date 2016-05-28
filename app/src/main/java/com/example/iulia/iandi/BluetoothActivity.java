@@ -43,7 +43,7 @@ public class BluetoothActivity extends AppCompatActivity {
     //legattura cu interfata
     private Toolbar toolbar;
     private ListView mConversationView;
-    private EditText mOutEditText;
+   // private EditText mOutEditText;
     private Button mSendButton;
 
     //Name of the connected device
@@ -57,20 +57,17 @@ public class BluetoothActivity extends AppCompatActivity {
     //Member object for the chat services
     private BluetoothService mChatService = null;
 
-    Boolean isCreateClicked;
-    Boolean isJoinClicked;
+    boolean doubleBackToExitPressedOnce = false;
 
     Button makeVisible;
     Button createConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_bluetooth);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
-        //toolbar.setLogo(R);
         setSupportActionBar(toolbar);
 
         //Get local Bluetooth adapter
@@ -81,16 +78,17 @@ public class BluetoothActivity extends AppCompatActivity {
             return;
         }
 
-        makeVisible=(Button)findViewById(R.id.visible);
-        createConnection=(Button)findViewById(R.id.connection);
+        makeVisible = (Button) findViewById(R.id.visible);
+        createConnection = (Button) findViewById(R.id.connection);
 
         Intent loginIntent = getIntent();
         Boolean isCreateIntent = loginIntent.getBooleanExtra(LoginActivity.CREATE_BTN_CLICKED_KEY, false);
         Boolean isJoinIntent = loginIntent.getBooleanExtra(LoginActivity.JOIN_BTN_CLICKED_KEY, false);
-        if(isCreateIntent){
+
+        if (isCreateIntent) {
             createConnection.setVisibility(View.VISIBLE);
         }
-        if(isJoinIntent){
+        if (isJoinIntent) {
             makeVisible.setVisibility(View.VISIBLE);
         }
 
@@ -121,6 +119,26 @@ public class BluetoothActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
+        }
 
     @Override
     public synchronized void onResume() {
@@ -163,8 +181,8 @@ public class BluetoothActivity extends AppCompatActivity {
         mConversationView.setAdapter(mConversationArrayAdapter);
 
         //Initialize the compose field with a listener for the key
-        mOutEditText = (EditText) findViewById(R.id.edit_text_out);
-        mOutEditText.setOnEditorActionListener(mWriteListener);
+//        mOutEditText = (EditText) findViewById(R.id.edit_text_out);
+//        mOutEditText.setOnEditorActionListener(mWriteListener);
 
 
         //Initialize the send button with a listener for click events
@@ -174,9 +192,9 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //send a message using content of the edit text widget
-                TextView view = (TextView) findViewById(R.id.edit_text_out);
-                String message = view.getText().toString();
-                sendMessage(message);
+//                TextView view = (TextView) findViewById(R.id.edit_text_out);
+//                String message = view.getText().toString();
+                sendMessage("vvfvfvf");
             }
         });
 
@@ -216,11 +234,12 @@ public class BluetoothActivity extends AppCompatActivity {
 
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer.setLength(0);
-            mOutEditText.setText(mOutStringBuffer);
+           // mOutEditText.setText(mOutStringBuffer);
         }
     }
 
     // The action listener for the EditText widget, to listen for the return key
+/*
     private TextView.OnEditorActionListener mWriteListener = new TextView.OnEditorActionListener() {
 
         @Override
@@ -234,6 +253,7 @@ public class BluetoothActivity extends AppCompatActivity {
             return true;
         }
     };
+*/
 
     //The Handler that gets information back from the BluetoothChatService
     private final Handler mHandler = new Handler() {
@@ -243,8 +263,9 @@ public class BluetoothActivity extends AppCompatActivity {
                 case MESSAGE_STAGE_CHANGE:
                     switch (msg.arg1) {
                         case BluetoothService.STATE_CONNECTED:
-                            toolbar.setTitle(R.string.title_connected_to + "\n" + mConnectedDeviceName);
-                            mConversationArrayAdapter.clear();
+                            toolbar.setTitle( mConnectedDeviceName);
+                           // mConversationArrayAdapter.clear();
+
                             createConnection.setVisibility(View.INVISIBLE);
                             makeVisible.setVisibility(View.INVISIBLE);
                             break;
@@ -263,7 +284,8 @@ public class BluetoothActivity extends AppCompatActivity {
 
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
-                    mConversationArrayAdapter.add("Me:  " + writeMessage);
+                    //mConversationArrayAdapter.add( "Me : " + writeMessage);
+                    Toast.makeText(BluetoothActivity.this,"Me:  " + writeMessage,Toast.LENGTH_LONG).show();
                     break;
 
                 case MESSAGE_READ:
@@ -271,7 +293,8 @@ public class BluetoothActivity extends AppCompatActivity {
 
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
-                    mConversationArrayAdapter.add(mConnectedDeviceName + ": " + readMessage);
+                   // mConversationArrayAdapter.add(mConnectedDeviceName + ": " + readMessage);
+                    Toast.makeText(BluetoothActivity.this,mConnectedDeviceName + ": " + readMessage,Toast.LENGTH_SHORT).show();
                     break;
 
                 case MESSAGE_DEVICE_NAME:

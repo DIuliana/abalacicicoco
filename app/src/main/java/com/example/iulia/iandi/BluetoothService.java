@@ -248,7 +248,7 @@ public class BluetoothService {
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
-        mAdapter.disable();
+      //  mAdapter.disable();
         // Start the service over to restart listening mode
         BluetoothService.this.start();
     }
