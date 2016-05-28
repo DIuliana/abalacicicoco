@@ -50,7 +50,7 @@ public class BluetoothActivity extends AppCompatActivity {
     private ListView mConversationView;
     // private EditText mOutEditText;
     private Button mSendButton;
-
+    private Button galaxyModeBtn;
     //Name of the connected device
     private String mConnectedDeviceName = null;
     //Array adapter for the conversation thread
@@ -137,9 +137,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
     public void onStart() {
         super.onStart();
 
@@ -211,14 +209,12 @@ public class BluetoothActivity extends AppCompatActivity {
 
         //Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothService(this, mHandler);
-
         //Initialize the buffer for outgoing messages
         mOutStringBuffer = new StringBuffer("");
     }
 
     private void ensureDiscoverable() {
         if (mBluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-
             Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
             startActivity(discoverableIntent);
@@ -263,7 +259,6 @@ public class BluetoothActivity extends AppCompatActivity {
                             makeVisible.setVisibility(View.INVISIBLE);
                             galaxyModeBtn.setVisibility(View.VISIBLE);
                             wipModeBtn.setVisibility(View.VISIBLE);
-
                             //get the values from game activity when the deices are connected
                             LocalBroadcastManager.getInstance(BluetoothActivity.this).registerReceiver(mReceiver, new IntentFilter("INTENT_NAME"));
                             break;

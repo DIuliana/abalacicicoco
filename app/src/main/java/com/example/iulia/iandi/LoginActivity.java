@@ -35,8 +35,8 @@ public class LoginActivity extends AppCompatActivity {
 
     Boolean createBtnClicked = false;
     Boolean joinBtnClicked = false;
-
     public static Activity loginActivity;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         loginActivity = this;

@@ -102,7 +102,6 @@ public class BluetoothDeviceListActivity extends Activity {
         if (mBtAdapter != null) {
             mBtAdapter.cancelDiscovery();
         }
-
         // Unregister broadcast listeners
         this.unregisterReceiver(mReceiver);
     }

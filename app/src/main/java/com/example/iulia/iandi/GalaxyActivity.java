@@ -20,36 +20,38 @@ import android.widget.Toast;
  * Created by Iulia on 07.05.2016.
  */
 public class GalaxyActivity extends Activity {
-
     private TextView messageTxt;
-    private Button butonel;
+    private Button btnSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.galaxy_mode);
+        @Override
+        protected void onCreate (Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.galaxy_mode);
 
-        messageTxt = (TextView) findViewById(R.id.messagefrombluethoot);
-        butonel = (Button) findViewById(R.id.butonel);
+            messageTxt = (TextView) findViewById(R.id.messagefrombluethoot);
+            butonel = (Button) findViewById(R.id.butonel);
 
-        Intent intent = getIntent();
-        String msg = intent.getStringExtra("msgProba");
-        messageTxt.setText(msg);
+            Intent intent = getIntent();
+            String msg = intent.getStringExtra("msgProba");
+            messageTxt.setText(msg);
 
-        butonel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentSendToBluetooth = new Intent("INTENT_NAME").putExtra("KEY", generateRandom());
-                LocalBroadcastManager.getInstance(GalaxyActivity.this).sendBroadcast(intentSendToBluetooth);
-            }
-        });
+            butonel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentSendToBluetooth = new Intent("INTENT_NAME").putExtra("KEY", generateRandom());
+                    LocalBroadcastManager.getInstance(GalaxyActivity.this).sendBroadcast(intentSendToBluetooth);
+                }
+            });
+        }
     }
-
-    String generateRandom() {
-        double number = Math.random();
-        number *= 100;
-        return Integer.toString((int) number);
+        String generateRandom () {
+            double number = Math.random();
+            number *= 100;
+            return Integer.toString((int) number);
+        }
     }
-
-}
 
