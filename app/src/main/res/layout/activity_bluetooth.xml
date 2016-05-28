@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.iulia.iandi.BluetoothActivity">
+    tools:context="com.example.iulia.iandi.MainActivity">
+
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+        <LinearLayout
 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_gravity="center_horizontal"
+                android:text="Make your device visible"
+                android:id="@+id/visible"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_gravity="center_horizontal"
+                android:text="Create connection"
+                android:visibility="invisible"
+
+                android:id="@+id/connection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,27 +52,22 @@
             android:stackFromBottom="true"
             android:transcriptMode="alwaysScroll"
             android:layout_weight="1"/>
-        <!--<LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
 
-            <EditText
+
+          <!--  <EditText
                 android:id="@+id/edit_text_out"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="bottom"/>
+                android:layout_gravity="bottom"/>-->
             <Button
+                android:layout_gravity="right"
                 android:id="@+id/btnTrimite"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:text=""
-                android:drawableLeft="@mipmap/ic_launcher"
                 android:background="#FFFFFF"/>
-        </LinearLayout>-->
+
     </LinearLayout>
-
-
 
 </android.support.design.widget.CoordinatorLayout>

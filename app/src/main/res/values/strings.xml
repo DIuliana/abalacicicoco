@@ -21,7 +21,6 @@
 <!--ToolBar showing states-->
 
     <string name="title_connecting">connecting...</string>
-    <string name="title_connected_to">connected: </string>
     <string name="title_not_connected">not connected</string>
 
     <!-- Menu -->

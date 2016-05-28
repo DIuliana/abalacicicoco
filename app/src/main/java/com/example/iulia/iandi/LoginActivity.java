@@ -1,5 +1,6 @@
 package com.example.iulia.iandi;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +19,9 @@ import android.widget.Toast;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    final static String USERNAME_KEY="username";
-    final static String CREATE_BTN_CLICKED_KEY="create";
-    final static String JOIN_BTN_CLICKED_KEY="join";
+    final static String USERNAME_KEY = "username";
+    final static String CREATE_BTN_CLICKED_KEY = "create";
+    final static String JOIN_BTN_CLICKED_KEY = "join";
 
     Button aboutAppBtn;
     TextView aboutAppText;
@@ -32,11 +33,13 @@ public class LoginActivity extends AppCompatActivity {
     String username = null;
     int click = 0;
 
+    Boolean createBtnClicked = false;
+    Boolean joinBtnClicked = false;
 
-    Boolean createBtnClicked=false;
-    Boolean joinBtnClicked=false;
+    public static Activity loginActivity;
 
     protected void onCreate(Bundle savedInstanceState) {
+        loginActivity = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -46,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         usernameField = (EditText) findViewById(R.id.username);
         play = (Button) findViewById(R.id.playBtn);
         play.setVisibility(View.INVISIBLE);
-        connect=(Button)findViewById(R.id.createGame);
-        join=(Button)findViewById(R.id.joinGame);
+        connect = (Button) findViewById(R.id.createGame);
+        join = (Button) findViewById(R.id.joinGame);
         aboutAppBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -95,8 +98,8 @@ public class LoginActivity extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createBtnClicked=true;
-                Intent connectionIntent=new Intent(LoginActivity.this, BluetoothActivity.class);
+                createBtnClicked = true;
+                Intent connectionIntent = new Intent(LoginActivity.this, BluetoothActivity.class);
                 connectionIntent.putExtra(CREATE_BTN_CLICKED_KEY, createBtnClicked);
                 startActivity(connectionIntent);
                 //connect.setEnabled(false);
@@ -106,15 +109,14 @@ public class LoginActivity extends AppCompatActivity {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                joinBtnClicked=true;
-                Intent connectionIntent=new Intent(LoginActivity.this, BluetoothActivity.class);
+                joinBtnClicked = true;
+                Intent connectionIntent = new Intent(LoginActivity.this, BluetoothActivity.class);
                 connectionIntent.putExtra(JOIN_BTN_CLICKED_KEY, joinBtnClicked);
                 startActivity(connectionIntent);
-              //  join.setEnabled(true);
+                //  join.setEnabled(true);
             }
         });
     }
-
 
     public boolean isClickedOnce() {
         if (click % 2 == 1) {
@@ -141,9 +143,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void createConnection(View view ){
-        createBtnClicked=true;
-        Intent connectionIntent=new Intent(this, BluetoothActivity.class);
+    public void createConnection(View view) {
+        createBtnClicked = true;
+        Intent connectionIntent = new Intent(this, BluetoothActivity.class);
         connectionIntent.putExtra(CREATE_BTN_CLICKED_KEY, createBtnClicked);
         startActivity(connectionIntent);
     }
