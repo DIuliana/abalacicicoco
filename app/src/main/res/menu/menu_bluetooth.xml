@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.iulia.bluetoothexemple.MainActivity">
+    <item
+        android:id="@+id/menuVizibil"
+        android:orderInCategory="100"
+        android:title="@string/menuVizibil"
+        app:showAsAction="never" />
+    <item android:id="@+id/menuConectare"
+        android:title="@string/menuConectare"
+        android:orderInCategory="200"
+        app:showAsAction="never"/>
+</menu>

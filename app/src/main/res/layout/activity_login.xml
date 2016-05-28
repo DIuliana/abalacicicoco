@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<Button
+    android:id="@+id/aboutApp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="80dp"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/logo"/>
+
+    <ImageView
+        android:id="@+id/usernameFieldImage"
+        android:layout_below="@id/aboutApp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/input_box"/>
+
+    <EditText
+        android:id="@+id/username"
+        android:hint="@string/enter_username"
+        android:inputType="text"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColorHint="#ffffffff"
+        android:textColorHighlight="#00ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/usernameFieldImage"
+        android:layout_alignTop="@+id/usernameFieldImage"
+        android:layout_alignRight="@+id/usernameFieldImage"
+        android:layout_alignBottom="@+id/usernameFieldImage"
+        android:layout_below="@+id/aboutApp"
+        android:maxLength="8"/>
+<Button
+    android:id="@+id/playBtn"
+    android:text="PLAY"
+    android:layout_marginTop="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/username"
+    android:enabled="false"
+    android:layout_centerHorizontal="true" />
+
+<ImageView
+    android:id="@+id/aboutAppImage"
+    android:layout_below="@id/aboutApp"
+    android:layout_marginTop="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scaleType="fitXY"
+    android:layout_centerHorizontal="true"
+    android:src="@drawable/info_box"
+    android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/aboutAppText"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="@string/copy_rigth"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/aboutAppImage"
+        android:layout_alignTop="@+id/aboutAppImage"
+        android:layout_alignRight="@+id/aboutAppImage"
+        android:layout_alignBottom="@+id/aboutAppImage"
+        android:layout_below="@+id/aboutApp"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="70dp">
+
+        <Button
+            android:id="@+id/createGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CREATE"/>
+
+        <Button
+            android:id="@+id/joinGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="JOIN"/>
+
+    </LinearLayout>
+</RelativeLayout>
