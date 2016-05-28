@@ -1,12 +1,17 @@
+
 package com.example.iulia.iandi;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -43,7 +48,7 @@ public class BluetoothActivity extends AppCompatActivity {
     //legattura cu interfata
     private Toolbar toolbar;
     private ListView mConversationView;
-   // private EditText mOutEditText;
+    // private EditText mOutEditText;
     private Button mSendButton;
 
     //Name of the connected device
@@ -61,6 +66,12 @@ public class BluetoothActivity extends AppCompatActivity {
 
     Button makeVisible;
     Button createConnection;
+
+    Button galaxyModeBtn;
+    Button wipModeBtn;
+
+    String galaxyBtnText = "";
+    String wipBtnText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +91,8 @@ public class BluetoothActivity extends AppCompatActivity {
 
         makeVisible = (Button) findViewById(R.id.visible);
         createConnection = (Button) findViewById(R.id.connection);
+        galaxyModeBtn = (Button) findViewById(R.id.galaxyBtn);
+        wipModeBtn = (Button) findViewById(R.id.wipBtn);
 
         Intent loginIntent = getIntent();
         Boolean isCreateIntent = loginIntent.getBooleanExtra(LoginActivity.CREATE_BTN_CLICKED_KEY, false);
@@ -103,8 +116,28 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ensureDiscoverable();
+                galaxyBtnText = "JOIN GALAXY!";
+                wipBtnText = "JOIN WIP";
+                galaxyModeBtn.setText(galaxyBtnText);
+                wipModeBtn.setText(wipBtnText);
             }
         });
+        galaxyModeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent probaIntent = new Intent(BluetoothActivity.this, GalaxyActivity.class);
+                String message = "abalaciccicocoo";
+                probaIntent.putExtra("msgProba", message);
+                startActivity(probaIntent);
+            }
+        });
+        wipModeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     public void onStart() {
@@ -123,22 +156,22 @@ public class BluetoothActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-            if (doubleBackToExitPressedOnce) {
-                super.onBackPressed();
-                return;
-            }
-
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce=false;
-                }
-            }, 2000);
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
         }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
 
     @Override
     public synchronized void onResume() {
@@ -157,6 +190,8 @@ public class BluetoothActivity extends AppCompatActivity {
     @Override
     public synchronized void onPause() {
         super.onPause();
+        //get random numbers from game activity
+
     }
 
     @Override
@@ -172,31 +207,7 @@ public class BluetoothActivity extends AppCompatActivity {
             mChatService.stop();
         }
     }
-
-
     private void setupChat() {
-        //Initialize the array adapter for the conversation thread
-        mConversationArrayAdapter = new ArrayAdapter<String>(this, R.layout.message);
-        mConversationView = (ListView) findViewById(R.id.in);
-        mConversationView.setAdapter(mConversationArrayAdapter);
-
-        //Initialize the compose field with a listener for the key
-//        mOutEditText = (EditText) findViewById(R.id.edit_text_out);
-//        mOutEditText.setOnEditorActionListener(mWriteListener);
-
-
-        //Initialize the send button with a listener for click events
-        mSendButton = (Button) findViewById(R.id.btnTrimite);
-        mSendButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //send a message using content of the edit text widget
-//                TextView view = (TextView) findViewById(R.id.edit_text_out);
-//                String message = view.getText().toString();
-                sendMessage("vvfvfvf");
-            }
-        });
 
         //Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothService(this, mHandler);
@@ -234,26 +245,9 @@ public class BluetoothActivity extends AppCompatActivity {
 
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer.setLength(0);
-           // mOutEditText.setText(mOutStringBuffer);
+            // mOutEditText.setText(mOutStringBuffer);
         }
     }
-
-    // The action listener for the EditText widget, to listen for the return key
-/*
-    private TextView.OnEditorActionListener mWriteListener = new TextView.OnEditorActionListener() {
-
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
-            //If the action is a key-up event on the return key, send the message
-            if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_UP) {
-                String message = v.getText().toString();
-                sendMessage(message);
-            }
-            return true;
-        }
-    };
-*/
 
     //The Handler that gets information back from the BluetoothChatService
     private final Handler mHandler = new Handler() {
@@ -263,11 +257,15 @@ public class BluetoothActivity extends AppCompatActivity {
                 case MESSAGE_STAGE_CHANGE:
                     switch (msg.arg1) {
                         case BluetoothService.STATE_CONNECTED:
-                            toolbar.setTitle( mConnectedDeviceName);
-                           // mConversationArrayAdapter.clear();
-
+                            toolbar.setTitle(mConnectedDeviceName);
+                            //make buttons visible after devices are connected
                             createConnection.setVisibility(View.INVISIBLE);
                             makeVisible.setVisibility(View.INVISIBLE);
+                            galaxyModeBtn.setVisibility(View.VISIBLE);
+                            wipModeBtn.setVisibility(View.VISIBLE);
+
+                            //get the values from game activity when the deices are connected
+                            LocalBroadcastManager.getInstance(BluetoothActivity.this).registerReceiver(mReceiver, new IntentFilter("INTENT_NAME"));
                             break;
                         case BluetoothService.STATE_CONNECTING:
                             toolbar.setTitle(R.string.title_connecting);
@@ -285,7 +283,7 @@ public class BluetoothActivity extends AppCompatActivity {
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
                     //mConversationArrayAdapter.add( "Me : " + writeMessage);
-                    Toast.makeText(BluetoothActivity.this,"Me:  " + writeMessage,Toast.LENGTH_LONG).show();
+                    Toast.makeText(BluetoothActivity.this, "Me:  " + writeMessage, Toast.LENGTH_LONG).show();
                     break;
 
                 case MESSAGE_READ:
@@ -293,8 +291,8 @@ public class BluetoothActivity extends AppCompatActivity {
 
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
-                   // mConversationArrayAdapter.add(mConnectedDeviceName + ": " + readMessage);
-                    Toast.makeText(BluetoothActivity.this,mConnectedDeviceName + ": " + readMessage,Toast.LENGTH_SHORT).show();
+                    // mConversationArrayAdapter.add(mConnectedDeviceName + ": " + readMessage);
+                    Toast.makeText(BluetoothActivity.this, mConnectedDeviceName + ": " + readMessage, Toast.LENGTH_SHORT).show();
                     break;
 
                 case MESSAGE_DEVICE_NAME:
@@ -306,8 +304,15 @@ public class BluetoothActivity extends AppCompatActivity {
                 case MESSAGE_TOAST:
                     Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST), Toast.LENGTH_SHORT).show();
                     break;
-
             }
+        }
+    };
+    //brodcast receiver from Game
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String receivedGalaxyNumber = intent.getStringExtra("KEY");
+            sendMessage(receivedGalaxyNumber);
         }
     };
 
