@@ -20,7 +20,6 @@ import android.widget.Toast;
  * Created by Iulia on 07.05.2016.
  */
 public class GalaxyActivity extends Activity {
-
     private TextView messageTxt;
     private Button butonel;
 
@@ -44,12 +43,10 @@ public class GalaxyActivity extends Activity {
             }
         });
     }
-
-    String generateRandom() {
+    public String generateRandom() {
         double number = Math.random();
         number *= 100;
         return Integer.toString((int) number);
     }
-
 }
 
