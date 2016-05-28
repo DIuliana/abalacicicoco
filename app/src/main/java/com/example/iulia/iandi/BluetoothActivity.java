@@ -47,10 +47,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     //legattura cu interfata
     private Toolbar toolbar;
-    private ListView mConversationView;
-    // private EditText mOutEditText;
-    private Button mSendButton;
-    private Button galaxyModeBtn;
+
     //Name of the connected device
     private String mConnectedDeviceName = null;
     //Array adapter for the conversation thread
@@ -64,10 +61,10 @@ public class BluetoothActivity extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
 
-    Button makeVisible;
-    Button createConnection;
 
-    Button galaxyModeBtn;
+    private Button makeVisible;
+    private Button createConnection;
+    private Button galaxyModeBtn;
     Button wipModeBtn;
 
     String galaxyBtnText = "";
