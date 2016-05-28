@@ -27,7 +27,7 @@ public class GalaxyActivity extends Activity {
 
         turnBtn=(Button)findViewById(R.id.go);
         Intent creatorClickedIntent=getIntent();
-        if(creatorClickedIntent.getBooleanExtra(BluetoothActivity.CREATE_BTN_CLICK_KEY,false)){
+        if(creatorClickedIntent.getBooleanExtra(BluetoothActivity.CREATE_BTN_CLICK_KEY,true)){
             turnBtn.setVisibility(View.VISIBLE);
         }
 
@@ -35,7 +35,7 @@ public class GalaxyActivity extends Activity {
         turnBtn.getLayoutParams().height=buttonSpace;
 
         background_support = (RelativeLayout) findViewById(R.id.backg_support);
-       // background = (ImageView) findViewById(R.id.background);
+        // background = (ImageView) findViewById(R.id.background);
 
         Intent intent = getIntent();
         String msg = intent.getStringExtra("msgProba");
@@ -61,4 +61,3 @@ public class GalaxyActivity extends Activity {
 
 
 }
-
