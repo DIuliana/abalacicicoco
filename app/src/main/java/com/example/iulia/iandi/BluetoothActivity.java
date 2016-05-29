@@ -61,6 +61,8 @@ public class BluetoothActivity extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
 
+    public  final static String CREATE_BTN_CLICK_KEY="create";
+    public  final static String JOIN_BTN_CLICK_KEY="join";
 
     private Button makeVisible;
     private Button createConnection;
@@ -105,8 +107,12 @@ public class BluetoothActivity extends AppCompatActivity {
         createConnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent creatorClickedIntent=new Intent(BluetoothActivity.this, GalaxyActivity.class);
+                creatorClickedIntent.putExtra(BluetoothActivity.CREATE_BTN_CLICK_KEY,true);
                 Intent serverIntent = new Intent(BluetoothActivity.this, BluetoothDeviceListActivity.class);
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+
+
             }
         });
         makeVisible.setOnClickListener(new View.OnClickListener() {

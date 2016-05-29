@@ -28,7 +28,7 @@
 
         <activity android:name=".GalaxyActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="landscape"/>
 
         <activity android:name=".BluetoothActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
