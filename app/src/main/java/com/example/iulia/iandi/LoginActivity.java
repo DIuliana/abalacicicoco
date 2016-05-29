@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     //for display dimensions
     private static Display  display;
 
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -153,5 +154,4 @@ public class LoginActivity extends AppCompatActivity {
     public static int getWidth(){
         return display.getWidth();
     }
-
 }

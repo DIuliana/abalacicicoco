@@ -47,7 +47,6 @@ public class BluetoothActivity extends AppCompatActivity {
 
     //legattura cu interfata
     private Toolbar toolbar;
-
     //Name of the connected device
     private String mConnectedDeviceName = null;
     //Array adapter for the conversation thread
@@ -92,7 +91,6 @@ public class BluetoothActivity extends AppCompatActivity {
         createConnection = (Button) findViewById(R.id.connection);
         galaxyModeBtn = (Button) findViewById(R.id.galaxyBtn);
         wipModeBtn = (Button) findViewById(R.id.wipBtn);
-
         Intent loginIntent = getIntent();
         Boolean isCreateIntent = loginIntent.getBooleanExtra(LoginActivity.CREATE_BTN_CLICKED_KEY, false);
         Boolean isJoinIntent = loginIntent.getBooleanExtra(LoginActivity.JOIN_BTN_CLICKED_KEY, false);
@@ -173,7 +171,6 @@ public class BluetoothActivity extends AppCompatActivity {
             }
         }, 2000);
     }
-
     @Override
     public synchronized void onResume() {
         super.onResume();
@@ -209,7 +206,6 @@ public class BluetoothActivity extends AppCompatActivity {
         }
     }
     private void setupChat() {
-
         //Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothService(this, mHandler);
         //Initialize the buffer for outgoing messages
@@ -340,5 +336,4 @@ public class BluetoothActivity extends AppCompatActivity {
                 }
         }
     }
-
 }
