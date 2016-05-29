@@ -1,11 +1,13 @@
 package com.example.iulia.iandi;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,18 +32,23 @@ public class LoginActivity extends AppCompatActivity {
     Button play;
     Button connect;
     Button join;
+
     String username = null;
     int click = 0;
 
     Boolean createBtnClicked = false;
     Boolean joinBtnClicked = false;
-    public static Activity loginActivity;
 
+    //for display dimensions
+    private static Display  display;
 
     protected void onCreate(Bundle savedInstanceState) {
-        loginActivity = this;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        WindowManager windowManager=(WindowManager)getSystemService(Context.WINDOW_SERVICE);
+        display=windowManager.getDefaultDisplay();
 
         aboutAppBtn = (Button) findViewById(R.id.aboutApp);
         aboutAppText = (TextView) findViewById(R.id.aboutAppText);
@@ -51,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         play.setVisibility(View.INVISIBLE);
         connect = (Button) findViewById(R.id.createGame);
         join = (Button) findViewById(R.id.joinGame);
+
         aboutAppBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -117,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
     public boolean isClickedOnce() {
         if (click % 2 == 1) {
             return true;
@@ -125,7 +132,6 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
     }
-
     public void showAboutAppInfo() {
         aboutAppImage.setVisibility(View.VISIBLE);
         aboutAppText.setVisibility(View.VISIBLE);
@@ -141,17 +147,11 @@ public class LoginActivity extends AppCompatActivity {
         modeIntent.putExtra(USERNAME_KEY, username);
         startActivity(modeIntent);
     }
-
-
-    public void createConnection(View view) {
-        createBtnClicked = true;
-        Intent connectionIntent = new Intent(this, BluetoothActivity.class);
-        connectionIntent.putExtra(CREATE_BTN_CLICKED_KEY, createBtnClicked);
-        startActivity(connectionIntent);
+    public static int getHeight(){
+        return display.getHeight();
     }
-//    public void joinConnection(View view ){
-//        Intent connectionIntent=new Intent(this, BluetoothActivity.class);
-//        connectionIntent.putExtra(JOIN_BTN_CLICKED_KEY, joinBtnClicked);
-//        startActivity(connectionIntent);
-//    }
+    public static int getWidth(){
+        return display.getWidth();
+    }
+
 }

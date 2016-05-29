@@ -9,7 +9,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.SyncStateContract;
 import android.util.Log;
 
 import java.io.IOException;
@@ -286,7 +285,6 @@ public class BluetoothService {
                 try {
                     // This is a blocking call and will only return on a
                     // successful connection or an exception
-
                   socket = mmServerSocket.accept();
                 } catch (IOException e) {
                     Log.e(TAG, "Socket Type: "+ "accept() failed", e);
